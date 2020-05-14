@@ -1,10 +1,17 @@
 fileFormatVersion: 2
 guid: 49bbb0657c59a4f78a7d975cb1e30519
-timeCreated: 1508778830
-licenseType: Free
 MonoImporter:
+  externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - axe_hit_audio: {instanceID: 0}
+  - dagger_hit_audio: {instanceID: 0}
+  - hammer_hit_audio: {instanceID: 0}
+  - pickaxe_hit_audio: {instanceID: 0}
+  - sword_hit_audio: {instanceID: 0}
+  - prefab: {instanceID: 0}
+  - hitbox: {instanceID: 0}
+  - hitEffect: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

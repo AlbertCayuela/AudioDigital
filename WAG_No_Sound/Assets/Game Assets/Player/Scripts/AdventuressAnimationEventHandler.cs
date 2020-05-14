@@ -14,6 +14,11 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
     public AK.Wwise.Event GetItem = new AK.Wwise.Event();
     public AK.Wwise.Trigger GetItemStinger = new AK.Wwise.Trigger();
 
+    
+
+    public AudioClip leftFootStep;
+    public AudioClip rightFootStep;
+
     [Header("Object Links")]
     [SerializeField]
     private Animator playerAnimator;
@@ -32,6 +37,7 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
 
     private void Awake()
     {
+        PlayerManager.player_source = transform.GetComponent<AudioSource>();
         GameObject L = GameObject.Find("toe_left");
         GameObject R = GameObject.Find("toe_right");
         if (L != null)
@@ -90,6 +96,8 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
                         foot_L.PlayFootstepSound();
                         particlePosition = foot_L.transform.position;
                         FootstepParticles(particlePosition);
+                        AudioSource audioSource = GetComponent<AudioSource>();
+                        audioSource.PlayOneShot(leftFootStep, 0.7F);
                     }
                 }
                 else
@@ -99,6 +107,8 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
                         foot_R.PlayFootstepSound();
                         particlePosition = foot_R.transform.position;
                         FootstepParticles(particlePosition);
+                        AudioSource audioSource = GetComponent<AudioSource>();
+                        audioSource.PlayOneShot(rightFootStep, 0.7F);
                     }
                 }
             }

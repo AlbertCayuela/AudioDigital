@@ -13,10 +13,13 @@ public class CoinPickup : MonoBehaviour {
 
     public bool playSpawnSoundAtSpawn = true;
     public AK.Wwise.Event spawnSound;
+    public AudioClip pick_up_clip;
 
-	void Start(){
+    void Start(){
         if (playSpawnSoundAtSpawn){
             spawnSound.Post(gameObject);
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(pick_up_clip, 0.7F);
         }
 	}
 

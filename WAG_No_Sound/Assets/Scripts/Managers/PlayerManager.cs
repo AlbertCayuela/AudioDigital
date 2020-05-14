@@ -26,6 +26,8 @@ public class PlayerManager : Singleton<PlayerManager>
     public AK.Wwise.RTPC RegenerationLevel = new AK.Wwise.RTPC();
     public AK.Wwise.Event HurtSound = new AK.Wwise.Event();
 
+    public static AudioSource player_source;
+
     [Header("Player Information")]
     public bool isAlive;
     public bool isDashing;
