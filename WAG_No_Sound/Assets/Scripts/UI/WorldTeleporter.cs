@@ -15,7 +15,8 @@ public class WorldTeleporter : MonoBehaviour
 {
     //TODO: Custom inspector with EditorGUI.HelpBox("Tag all teleport destinations with the tag 'TeleportDestination'");
     private TeleportDestination[] destinations;
-
+    public AudioSource audio;
+    public AudioClip audioClip;
     [Header("Wwise")]
     public AK.Wwise.Event TeleportSelectSound;
 
@@ -79,6 +80,7 @@ public class WorldTeleporter : MonoBehaviour
         {
             PlayerManager.Instance.player.transform.position = destinations[dropdown.value - 1].transform.position;
             TeleportSelectSound.Post(PlayerManager.Instance.player);
+            audio.PlayOneShot(audioClip);
             dropdown.value = 0;
             dropdown.captionText.text = LanguageManager.GetText("menu_teleport");
 
