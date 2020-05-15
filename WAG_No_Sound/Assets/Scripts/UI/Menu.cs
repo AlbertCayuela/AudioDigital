@@ -66,7 +66,7 @@ public class Menu : MonoBehaviour
             isOpen = menuOpen;
             if (menuOpen)
             {
-                Audiosource.PlayOneShot(sound_open);
+                Audiosource.PlayOneShot(sound_open,vol);
                /* MenuOpenSound.Post(gameObject);
                 MenuRTPC.SetGlobalValue(100f);*/
                 GameManager.Instance.gameSpeedHandler.PauseGameSpeed(gameObject.GetInstanceID());
@@ -80,7 +80,7 @@ public class Menu : MonoBehaviour
             }
             else
             {
-                Audiosource.PlayOneShot(sound_close);
+                Audiosource.PlayOneShot(sound_close,vol);
                 /*MenuCloseSound.Post(gameObject);
                 MenuRTPC.SetGlobalValue(0f);*/
                 GameManager.Instance.gameSpeedHandler.UnPauseGameSpeed(gameObject.GetInstanceID());

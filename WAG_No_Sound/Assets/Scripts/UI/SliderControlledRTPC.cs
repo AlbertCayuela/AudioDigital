@@ -4,18 +4,36 @@
 //
 ////////////////////////////////////////////////////////////////////////
 
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class SliderControlledRTPC : MonoBehaviour
 {
-    public AK.Wwise.RTPC RTPC;
+    
+    private Slider slider;
+    public AudioMixer Mixer;
+    public bool MusicSliderActive = false;
+
+
+    private void Awake()
+    {
+        slider = GetComponent<Slider>();
+    }
 
     public void SetRTPC(float value)
     {
         if (Menu.isOpen)
         {
-            RTPC.SetGlobalValue(value);
+           
+            if (MusicSliderActive)
+            {
+                Mixer.SetFloat("musicVol", slider.value);
+            }
+            else
+            {
+                Mixer.SetFloat("masterVol", slider.value);
+            }  
         }
     }
-
 }
