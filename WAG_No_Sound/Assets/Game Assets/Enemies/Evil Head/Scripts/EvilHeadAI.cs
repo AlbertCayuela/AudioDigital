@@ -15,13 +15,21 @@ public class EvilHeadAI : Creature
     public GameObject deathFX;
     public GameObject keepOnDeath;
 
-    [Header("Wwise")]
-    public AK.Wwise.RTPC MovementRTPC;
-    public AK.Wwise.Event HoverSoundStart;
-    public AK.Wwise.Event HoverSoundEnd;
-    public AK.Wwise.Event BiteSound;
-    public AK.Wwise.Event ChargeSound;
-    public AK.Wwise.Event TelegraphSound;
+    [Header("Audios EvilHead")]
+    public AudioClip bite = null;
+    public AudioClip hover = null;
+    public AudioClip charge = null;
+    public AudioClip attack = null;
+
+    public float MovementRTPC;
+
+    //[Header("Wwise")]
+    //public AK.Wwise.RTPC MovementRTPC;
+    //public AK.Wwise.Event HoverSoundStart;
+    //public AK.Wwise.Event HoverSoundEnd;
+    //public AK.Wwise.Event BiteSound;
+    //public AK.Wwise.Event ChargeSound;
+    //public AK.Wwise.Event TelegraphSound;
 
     #region private variables
     private Vector3 targetLocation = Vector3.zero;
@@ -33,7 +41,7 @@ public class EvilHeadAI : Creature
     #endregion
 
     private void SetMovementSpeed(float speed) {
-        MovementRTPC.SetValue(gameObject, speed);
+        MovementRTPC = speed;
     }
 
     private void Awake()
@@ -46,8 +54,10 @@ public class EvilHeadAI : Creature
 
     public override void Start(){
 		base.Start();
-        HoverSoundStart.Post(this.gameObject);
-	}
+        //HoverSoundStart.Post(this.gameObject);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(hover, 0.7F);
+    }
 
     public override void OnSpotting()
     {
@@ -77,7 +87,8 @@ public class EvilHeadAI : Creature
         thisNavMeshAgent.destination = transform.position;
         targetLocation = targetOfNPC.transform.position + Vector3.up;
         StartCoroutine(RotateTowardsTarget(targetLocation, 1f));
-        TelegraphSound.Post(gameObject);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(attack, 0.7F);
     }
 
 
@@ -117,8 +128,10 @@ public class EvilHeadAI : Creature
     IEnumerator ChargeTowardsPlayer(float seconds)
     {
         //print(Time.realtimeSinceStartup + ": ChargeTowardsPlayer");
-        TelegraphSound.Stop(gameObject,0, AkCurveInterpolation.AkCurveInterpolation_Linear);
-        ChargeSound.Post(gameObject);
+        /* TelegraphSound.Stop(gameObject,0, AkCurveInterpolation.AkCurveInterpolation_Linear);
+         ChargeSound.Post(gameObject);*/
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(charge, 0.7F);
 
         Vector3 currentPosition = transform.position;
         Vector3 destination = targetLocation + ((targetLocation) - currentPosition).normalized * 2f;
@@ -164,7 +177,7 @@ public class EvilHeadAI : Creature
     {
         SetMovementSpeed(0f);
         //print(Time.realtimeSinceStartup + ": Explode");
-        HoverSoundEnd.Post(this.gameObject);
+       // HoverSoundEnd.Post(this.gameObject);
 
         GameObject fx = (GameObject)Instantiate(deathFX, transform.position, Quaternion.identity);
         Destroy(fx, 5f);
@@ -189,6 +202,7 @@ public class EvilHeadAI : Creature
     /// </summary>
     public void PlayBiteSound()
     {
-        BiteSound.Post(this.gameObject);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(bite, 0.7F);
     }
 }

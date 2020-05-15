@@ -14,12 +14,14 @@ public class EvilHeadSpawner : MonoBehaviour
     public GameObject EvilHead;
     public Vector3 SpawnOffset;
     public GameObject DestructionParticles;
-    public AK.Wwise.Event DestructionSound;
+   // public AK.Wwise.Event DestructionSound;
     public bool SpawnOnAwake = false;
     public bool SpawnInifitely = false;
     private float SpawnInterval = 15f;
 
-	private GameObject EH = null;
+    public AudioClip audio_clip = null;
+
+    private GameObject EH = null;
 
 	void OnEnable()
     {
@@ -83,7 +85,8 @@ public class EvilHeadSpawner : MonoBehaviour
         {
             GameObject destructionParticles = (Instantiate(DestructionParticles, transform.position, Quaternion.identity)) as GameObject;
             Destroy(destructionParticles, 5f);
-            DestructionSound.Post(destructionParticles);
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(audio_clip, 0.7F);
             Destroy(this.gameObject);
         }
     }
@@ -92,7 +95,8 @@ public class EvilHeadSpawner : MonoBehaviour
 	{
 		if (EH)
 		{
-			AkSoundEngine.StopAll(EH);
-		}
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.Stop();
+        }
 	}
 }

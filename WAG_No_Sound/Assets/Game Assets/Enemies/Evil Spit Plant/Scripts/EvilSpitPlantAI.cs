@@ -23,11 +23,16 @@ public class EvilSpitPlantAI : Creature
     private readonly int isAliveHash = Animator.StringToHash("IsAlive");
     #endregion
 
-    [Header("WWISE")]
-    public AK.Wwise.Event AttackSound = new AK.Wwise.Event();
-    public AK.Wwise.Event ChargeSound = new AK.Wwise.Event();
-    public AK.Wwise.Event Death_Headfall = new AK.Wwise.Event();
-    public AK.Wwise.Event asdasdasfasda;
+    //[Header("WWISE")]
+    //public AK.Wwise.Event AttackSound = new AK.Wwise.Event();
+    //public AK.Wwise.Event ChargeSound = new AK.Wwise.Event();
+    //public AK.Wwise.Event Death_Headfall = new AK.Wwise.Event();
+    //public AK.Wwise.Event asdasdasfasda;
+
+    [Header("Audios:")]
+    public AudioClip attack = null;
+    public AudioClip charge = null;
+    public AudioClip die = null;
 
     public override void OnSpotting()
     {
@@ -58,7 +63,9 @@ public class EvilSpitPlantAI : Creature
     {
         if (targetOfNPC != null && !GameManager.Instance.AIPaused)
         {
-            AttackSound.Post(this.gameObject);
+            //AttackSound.Post(this.gameObject);
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(attack, 0.7F);
 
             GameObject bullet = Instantiate(bulletPrefab, spitBulletSpawnPoint.transform.position, Quaternion.LookRotation(transform.forward)) as GameObject; //TODO: Pool spitbullets
             bullet.GetComponent<EvilSpitPlantProjectile>().parent = gameObject;
@@ -71,7 +78,8 @@ public class EvilSpitPlantAI : Creature
 
     public void PlayChargeSound()
     {
-        ChargeSound.Post(gameObject);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(charge, 0.7F);
     }
 
     /// <summary>
@@ -137,6 +145,7 @@ public class EvilSpitPlantAI : Creature
 
     public void OnDeathHeadFall()
     {
-        Death_Headfall.Post(this.gameObject);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(die, 0.7F);
     }
 }

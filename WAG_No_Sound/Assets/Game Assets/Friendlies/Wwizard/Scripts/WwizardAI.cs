@@ -9,10 +9,10 @@ using UnityEngine.AI;
 
 public class WwizardAI : Creature
 {
-    [Header("Wwise")]
+    /*[Header("Wwise")]
     public AK.Wwise.Event PoofGimmickSound;
     public AK.Wwise.Event StaffHitGroundSound;
-    public MaterialChecker matChecker;
+    public MaterialChecker matChecker;*/
 
     [Header("Idle Gimmick 1 Poof Objects")]
     public GameObject Gimmick1PoofParticles;
@@ -25,6 +25,9 @@ public class WwizardAI : Creature
     [Header("NavMesh Stuff")]
     public NavMeshAgent navMeshAgent;
     public NavMeshObstacle navMeshObstacle;
+
+    public AudioClip wizard_sound1 = null;
+    public AudioClip wizard_sound2 = null;
 
     #region private variables
     //Cached animator hashes
@@ -58,7 +61,8 @@ public class WwizardAI : Creature
         if (Gimmick1PoofParticles != null && Gimmick1PoofTransform != null)
         {
             GameObject p = Instantiate(Gimmick1PoofParticles, Gimmick1PoofTransform.transform.position + Gimmick1Displacement, Quaternion.identity) as GameObject;
-            PoofGimmickSound.Post(p);
+            AudioSource audioSource = GetComponent<AudioSource>();
+            audioSource.PlayOneShot(wizard_sound1, 0.7F);
             Destroy(p, 5f);
         }
     }
@@ -96,7 +100,8 @@ public class WwizardAI : Creature
 
     public void PlayStaffSound()
     {
-        matChecker.CheckMaterial(gameObject);
-        StaffHitGroundSound.Post(gameObject);
+        //matChecker.CheckMaterial(gameObject);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.PlayOneShot(wizard_sound2, 0.7F);
     }
 }

@@ -15,9 +15,12 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
     public AK.Wwise.Trigger GetItemStinger = new AK.Wwise.Trigger();
 
     
-
+    
     public AudioClip leftFootStep;
     public AudioClip rightFootStep;
+    public AudioClip left_attack_sound;
+    public AudioClip right_attack_sound;
+    public AudioClip topdown_attack_sound;
 
     [Header("Object Links")]
     [SerializeField]
@@ -151,7 +154,20 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
     {
         // PLAY SOUND
         Weapon W = PlayerManager.Instance.equippedWeaponInfo;
-        W.WeaponTypeSwitch.SetValue(PlayerManager.Instance.weaponSlot);
+        // W.WeaponTypeSwitch.SetValue(PlayerManager.Instance.weaponSlot);
+        AudioSource audioSource = GetComponent<AudioSource>();
+        if(W.state == 1)
+        {
+            audioSource.PlayOneShot(right_attack_sound, 0.7F);
+        }
+        else if(W.state == 2)
+        {
+            audioSource.PlayOneShot(left_attack_sound, 0.7F);
+        }
+        else if (W.state == 3)
+        {
+            audioSource.PlayOneShot(topdown_attack_sound, 0.7F);
+        }
         Swing.Post(PlayerManager.Instance.weaponSlot);
     }
 
@@ -195,6 +211,6 @@ public class AdventuressAnimationEventHandler : MonoBehaviour
     public void WeaponSound()
     {
         Weapon EquippedWeapon = PlayerManager.Instance.equippedWeaponInfo;
-        EquippedWeapon.WeaponImpact.Post(EquippedWeapon.transform.parent.gameObject);
+       // EquippedWeapon.WeaponImpact.Post(EquippedWeapon.transform.parent.gameObject);
     }
 }

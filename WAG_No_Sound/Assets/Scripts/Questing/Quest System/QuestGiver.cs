@@ -13,14 +13,24 @@ namespace QuestSystem
     public delegate void QuestGiverEvent(QuestGiver questGiver);
     public class QuestGiver : InteractableNPC
     {
+
+        private AudioSource Audiosource;
+        public AudioClip sound_questline1;
+        public AudioClip sound_questline2;
+        private int curr_quest = 1;
+        public float vol = 1F;
+
+
         public static event QuestGiverEvent OnQuestlineForcedChangeStarted;
         public static event QuestGiverEvent OnQuestlineForcedChangeEnded;
         public event QuestGiverEvent OnQuestlineComplete;
         public event QuestEvent OnNewQuest;
         public event QuestEvent OnQuestCompleted;
 
-        public AK.Wwise.RTPC QuestlineProgressionRTPC;
-        public AK.Wwise.Event QuestlineCompleteEvent;
+        public float QuestlineProgressionRTPC;
+
+        /* public AK.Wwise.RTPC QuestlineProgressionRTPC;
+         public AK.Wwise.Event QuestlineCompleteEvent;*/
         //public AK.Wwise.Event QuestlineAdvancedEvent;
 
         public bool StartQuestLineOnStart = true;
@@ -32,6 +42,11 @@ namespace QuestSystem
 
         private IEnumerator interactionRoutine;
         #endregion
+
+        private void Awake()
+        {
+            Audiosource = GetComponent<AudioSource>();
+        }
 
         private void Start()
         {
@@ -59,7 +74,13 @@ namespace QuestSystem
                 OnNewQuest(currentQuest);
             }
 
-            QuestlineProgressionRTPC.SetGlobalValue(GetNormalizedQuestlineProgress() * 100f);
+            QuestlineProgressionRTPC=GetNormalizedQuestlineProgress() * 100f;
+
+            if (QuestlineProgressionRTPC == 0)
+                curr_quest = 1;
+            else
+                curr_quest = 2;
+
             initializingNewQuest = false;
         }
 
@@ -86,12 +107,31 @@ namespace QuestSystem
             currentQuestIdx++;
             if (currentQuestIdx < Quests.Count)
             {
-                QuestlineCompleteEvent.Post(gameObject);
+                // HINT: Questline complete, you may want to play a sound here
+                switch (curr_quest)
+                {
+                    case 1:
+                        Audiosource.PlayOneShot(sound_questline1, vol);
+                        break;
+                    case 2:
+                        Audiosource.PlayOneShot(sound_questline2, vol);
+                        break;
+                }
+
                 InitializeQuest(currentQuestIdx);
             }
             else
             {
-                QuestlineCompleteEvent.Post(gameObject);
+                // HINT: Questline complete, you may want to play a sound here
+                switch (curr_quest)
+                {
+                    case 1:
+                        Audiosource.PlayOneShot(sound_questline1, vol);
+                        break;
+                    case 2:
+                        Audiosource.PlayOneShot(sound_questline2, vol);
+                        break;
+                }
                 if (OnQuestlineComplete != null)
                 {
                     OnQuestlineComplete(this);

@@ -13,6 +13,8 @@ using UnityEngine.EventSystems;
 
 public class Inventory : MonoBehaviour
 {
+
+
     public Canvas ThisCanvas;
     public CanvasGroup canvasGroup;
 
@@ -33,6 +35,13 @@ public class Inventory : MonoBehaviour
 
     [Header("B Icon")]
     public GameObject StatusObject;
+
+    [Header("Audios")]
+    public AudioClip sound_open_inventory;
+    public AudioClip sound_close_inventory;
+    public AudioClip sound_scroll;
+    public AudioClip sound_select;
+    private AudioSource Audiosource;
 
     [System.Serializable]
     public class PositionContainers
@@ -55,10 +64,10 @@ public class Inventory : MonoBehaviour
 
     public static bool InventoryIsOut = false;
 
-    [Header("Wwise")]
+   /* [Header("Wwise")]
     public AK.Wwise.Event InventoryOpenedSound;
     public AK.Wwise.Event InventoryClosedSound;
-    public AK.Wwise.Event InventorySelectSound;
+    public AK.Wwise.Event InventorySelectSound;*/
 
     #region private variables
     private bool hasShown = false;
@@ -77,6 +86,11 @@ public class Inventory : MonoBehaviour
     private Image MarkerImage_Row2;
     private Image MarkerImage_Row3;
     #endregion
+
+    private void Awake()
+    {
+        Audiosource = GetComponent<AudioSource>();
+    }
 
     private void OnDestroy()
     {
@@ -711,7 +725,8 @@ public class Inventory : MonoBehaviour
         if (!Menu.isOpen && DialogueManager.Instance.Dialogue.Count < 1 && !InventoryIsOut)
         {
             canvasGroup.interactable = true;
-            InventoryOpenedSound.Post(gameObject);
+            Audiosource.PlayOneShot(sound_open_inventory, 0.7F);
+          //  InventoryOpenedSound.Post(gameObject);
             InventoryIsOut = true;
             if (EventSystem.current != null)
             {
@@ -733,7 +748,8 @@ public class Inventory : MonoBehaviour
         if (InventoryIsOut)
         {
             canvasGroup.interactable = false;
-            InventoryClosedSound.Post(gameObject);
+            Audiosource.PlayOneShot(sound_close_inventory, 0.7F);
+          //  InventoryClosedSound.Post(gameObject);
             InventoryIsOut = false;
             GameManager.Instance.gameSpeedHandler.UnPauseGameSpeed(gameObject.GetInstanceID());
 
@@ -789,8 +805,8 @@ public class Inventory : MonoBehaviour
 
     public void ButtonIncrement(int layer)
     {
-        InventorySelectSound.Post(gameObject);
-
+        //InventorySelectSound.Post(gameObject);
+        Audiosource.PlayOneShot(sound_scroll,0.7F);
         if (Panel.activeInHierarchy && hasShown)
         {
             if (layer == 0)
@@ -813,7 +829,8 @@ public class Inventory : MonoBehaviour
 
     public void InversedIncrement(int layer)
     {
-        InventorySelectSound.Post(gameObject);
+        Audiosource.PlayOneShot(sound_scroll,0.7F);
+       // InventorySelectSound.Post(gameObject);
         if (Panel.activeInHierarchy && hasShown)
         {
             if (layer == 0)

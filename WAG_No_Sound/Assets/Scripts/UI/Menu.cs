@@ -12,14 +12,20 @@ using UnityEngine.Events;
 public delegate void MenuStateEvent(bool state);
 public class Menu : MonoBehaviour
 {
+
+    private AudioSource Audiosource;
+    public AudioClip sound_open;
+    public AudioClip sound_close;
+    public float vol = 1F;  
+
     public static bool isOpen = false;
     public static MenuStateEvent OnMenuStateChange;
 
-    [Header("Wwise")]
+   /* [Header("Wwise")]
     public AK.Wwise.RTPC MenuRTPC;
     public AK.Wwise.Event MenuOpenSound;
     public AK.Wwise.Event MenuCloseSound;
-
+    */
     [Header("Other")]
     public AnimatedObjectActiveHandler ControlsBox;
     public AnimatedObjectActiveHandler QuestBox;
@@ -28,6 +34,12 @@ public class Menu : MonoBehaviour
     public MenuEvent OnMenuDown;
 
     private bool menuOpen = false;
+
+
+    private void Awake()
+    {
+        Audiosource = GetComponent<AudioSource>();
+    }
 
     public void Update()
     {
@@ -54,8 +66,9 @@ public class Menu : MonoBehaviour
             isOpen = menuOpen;
             if (menuOpen)
             {
-                MenuOpenSound.Post(gameObject);
-                MenuRTPC.SetGlobalValue(100f);
+                Audiosource.PlayOneShot(sound_open);
+               /* MenuOpenSound.Post(gameObject);
+                MenuRTPC.SetGlobalValue(100f);*/
                 GameManager.Instance.gameSpeedHandler.PauseGameSpeed(gameObject.GetInstanceID());
                 GameManager.Instance.BlurCam();
 
@@ -67,8 +80,9 @@ public class Menu : MonoBehaviour
             }
             else
             {
-                MenuCloseSound.Post(gameObject);
-                MenuRTPC.SetGlobalValue(0f);
+                Audiosource.PlayOneShot(sound_close);
+                /*MenuCloseSound.Post(gameObject);
+                MenuRTPC.SetGlobalValue(0f);*/
                 GameManager.Instance.gameSpeedHandler.UnPauseGameSpeed(gameObject.GetInstanceID());
                 GameManager.Instance.UnBlurCam();
                 QuestBox.DisableObject(0.25f);
