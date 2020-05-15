@@ -10,9 +10,12 @@ using System.Collections.Generic;
 
 public class EvilSpitPlantProjectile : MonoBehaviour
 {
-    [Header("Wwise")]
-    public AK.Wwise.Event ContinuousSoundStart;
-    public AK.Wwise.Event ContinuousSoundStop;
+    /* [Header("Wwise")]
+     public AK.Wwise.Event ContinuousSoundStart;
+     public AK.Wwise.Event ContinuousSoundStop;*/
+
+    public AudioClip hit_sound = null;
+    public AudioClip miss_sound = null;
 
     [Header("Prefab Links")]
     public GameObject explodeParticles;
@@ -28,8 +31,8 @@ public class EvilSpitPlantProjectile : MonoBehaviour
     [HideInInspector]
     public GameObject parent;
 
-    public AK.Wwise.Event ImpactSound = new AK.Wwise.Event();
-    public AK.Wwise.Event NoImpactSound = new AK.Wwise.Event();
+   /* public AK.Wwise.Event ImpactSound = new AK.Wwise.Event();
+    public AK.Wwise.Event NoImpactSound = new AK.Wwise.Event();*/
 
     #region private variables
     private Rigidbody rb;
@@ -54,7 +57,7 @@ public class EvilSpitPlantProjectile : MonoBehaviour
 
     IEnumerator MoveSpitBullet()
     {
-        ContinuousSoundStart.Post(gameObject);
+        
         while (time < duration)
         {
             rb.velocity = transform.forward * speed;
@@ -126,7 +129,7 @@ public class EvilSpitPlantProjectile : MonoBehaviour
         {
             isExploding = true;
 
-            ContinuousSoundStop.Post(gameObject);
+            //ContinuousSoundStop.Post(gameObject);
 
             GetComponent<Collider>().enabled = false;
             time = duration;
@@ -137,11 +140,15 @@ public class EvilSpitPlantProjectile : MonoBehaviour
 
             if (hitSomething)
             {
-                ImpactSound.Post(go.gameObject);
+                
+                AudioSource audioSource = GetComponent<AudioSource>();
+                audioSource.PlayOneShot(hit_sound, 0.7F);
             }
             else
             {
-                NoImpactSound.Post(go.gameObject);
+               
+                AudioSource audioSource = GetComponent<AudioSource>();
+                audioSource.PlayOneShot(miss_sound, 0.7F);
             }
 
             Destroy(go, 5f);

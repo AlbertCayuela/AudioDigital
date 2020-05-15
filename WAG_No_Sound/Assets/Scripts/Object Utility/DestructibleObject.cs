@@ -41,9 +41,17 @@ public class DestructibleObject : MonoBehaviour, IDamageable
     [ShowIf("enableItem", true)]
     public GameObject itemToEnable;
 
-    [Header("WWISE")]
+    /*[Header("WWISE")]
     public AK.Wwise.Event Destruction = new AK.Wwise.Event();
-    public AK.Wwise.RTPC DestructionLevel = new AK.Wwise.RTPC();
+    public AK.Wwise.RTPC DestructionLevel = new AK.Wwise.RTPC();*/
+
+    public AudioClip destroyed_sound;
+
+    public AudioClip dagger_hit_sound;
+    public AudioClip axe_hit_sound;
+    public AudioClip sword_hit_sound;
+    public AudioClip pickaxe_hit_sound;
+    public AudioClip hammer_hit_sound;
 
     private float destructionProgress = 0;
     private float origHP;
@@ -79,7 +87,7 @@ public class DestructibleObject : MonoBehaviour, IDamageable
         {//if any weapon types has been specified
             
             destructionProgress = 1 - (HP / origHP);
-            DestructionLevel.SetValue(PlayerManager.Instance.weaponSlot, destructionProgress * 100f);
+            //DestructionLevel.SetValue(PlayerManager.Instance.weaponSlot, destructionProgress * 100f);
             //print(destructionProgress * 100f);
 
             for (int i = 0; i < canBeDestroyedBy.Count; i++)
@@ -96,7 +104,7 @@ public class DestructibleObject : MonoBehaviour, IDamageable
                     if (HP > 0)
                     {
                         destructionProgress = 1 - (HP / origHP);
-                        DestructionLevel.SetValue(this.gameObject, (1 - destructionProgress) * 100f);
+                      //  DestructionLevel.SetValue(this.gameObject, (1 - destructionProgress) * 100f);
                         
                         if (intermediateMeshes != null && intermediateMeshes.Count > 0)
                         {
@@ -108,6 +116,28 @@ public class DestructibleObject : MonoBehaviour, IDamageable
                             {
                                 meshFilter.mesh = intermediateMeshes[meshIndex];
                             }
+                        }
+
+                        AudioSource audioSource = GetComponent<AudioSource>();
+                        if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Axe)
+                        {
+                            audioSource.PlayOneShot(axe_hit_sound, 0.7F);
+                        }
+                        else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Dagger)
+                        {
+                            audioSource.PlayOneShot(dagger_hit_sound, 0.7F);
+                        }
+                        else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Hammer)
+                        {
+                            audioSource.PlayOneShot(hammer_hit_sound, 0.7F);
+                        }
+                        else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.PickAxe)
+                        {
+                            audioSource.PlayOneShot(pickaxe_hit_sound, 0.7F);
+                        }
+                        else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Sword)
+                        {
+                            audioSource.PlayOneShot(sword_hit_sound, 0.7F);
                         }
                     }
                     else
@@ -146,7 +176,7 @@ public class DestructibleObject : MonoBehaviour, IDamageable
                                 Debug.LogError("DestructibleObject (" + gameObject.name + "): It seems you forgot to add an item to enable! Otherwise, disable 'Enable Item'.");
                             }
                         }
-                        Destruction.Post(gameObject);
+                       // Destruction.Post(gameObject);
                         Destroy(gameObject);
                     }
                     break;

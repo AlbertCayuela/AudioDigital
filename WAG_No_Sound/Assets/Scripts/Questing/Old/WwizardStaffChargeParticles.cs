@@ -10,9 +10,9 @@ using UnityEngine;
 
 public class WwizardStaffChargeParticles : MonoBehaviour
 {
-    [Header("Wwise")]
+   /* [Header("Wwise")]
     public AK.Wwise.Event StartChargeEvent;
-    public AK.Wwise.Event EndChargeEvent;
+    public AK.Wwise.Event EndChargeEvent;*/
 
     [Header("Line Renderer Settings")]
     public LineRenderer lineRenderer;
@@ -42,7 +42,7 @@ public class WwizardStaffChargeParticles : MonoBehaviour
 
         if (endPoint != null)
         {
-            StartChargeEvent.Post(endPoint.gameObject);
+           // StartChargeEvent.Post(endPoint.gameObject);
             chargeRoutine = AnimatePoints();
             StartCoroutine(chargeRoutine);
 
@@ -79,7 +79,7 @@ public class WwizardStaffChargeParticles : MonoBehaviour
 
     void OnDisable()
     {
-        EndChargeEvent.Post(endPoint.gameObject);
+        //EndChargeEvent.Post(endPoint.gameObject);
         StopCoroutine(chargeRoutine);
         if (lineRenderer != null)
         {

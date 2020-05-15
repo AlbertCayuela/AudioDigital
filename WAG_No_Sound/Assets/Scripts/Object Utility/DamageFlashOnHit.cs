@@ -12,6 +12,12 @@ public class DamageFlashOnHit : MonoBehaviour, IDamageable
 {
 	public float flashDuration = 0.1f;
 
+    public AudioClip axe_hit_sound = null;
+    public AudioClip dagger_hit_sound = null;
+    public AudioClip hammer_hit_sound = null;
+    public AudioClip pickaxe_hit_sound = null;
+    public AudioClip sword_hit_sound = null;
+
     #region private variables
     private List<Material> materials;
     private List<Color> originalColors;
@@ -47,6 +53,28 @@ public class DamageFlashOnHit : MonoBehaviour, IDamageable
         if (!isFlashing)
         {
             StartCoroutine(DamageFlash());
+
+            AudioSource audioSource = GetComponent<AudioSource>();
+            if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Axe)
+            {
+                audioSource.PlayOneShot(axe_hit_sound, 0.7F);
+            }
+            else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Dagger)
+            {
+                audioSource.PlayOneShot(dagger_hit_sound, 0.7F);
+            }
+            else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Hammer)
+            {
+                audioSource.PlayOneShot(hammer_hit_sound, 0.7F);
+            }
+            else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.PickAxe)
+            {
+                audioSource.PlayOneShot(pickaxe_hit_sound, 0.7F);
+            }
+            else if (PlayerManager.Instance.equippedWeaponInfo.weaponType == WeaponTypes.Sword)
+            {
+                audioSource.PlayOneShot(sword_hit_sound, 0.7F);
+            }
         }
     }
 

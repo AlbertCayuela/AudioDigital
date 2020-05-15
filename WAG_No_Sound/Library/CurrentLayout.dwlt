@@ -114,7 +114,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 117
+  controlID: 64
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -406,9 +406,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 1a320f001c250f00b62c0f004a2f0f00
-      m_LastClickedID: 995146
-      m_ExpandedIDs: 0240f7ffc0c3f7ff8640faff0641faffba42faff4a4cfaff7ecefaffeee1fbff207bfcffdc81fcff18ecfcffd042fdffc0c8fdff40cafdffd6fbffffa0410000bc4a00004c4e0000c6230f00e6280f00762b0f002a310f0050320f0006370f00de3d0f00
+      m_SelectedIDs: bcabffff4235000026b1ffff6e4500000ac8ffff52aaffffb6d7ffffaad8ffff643d0000fa3e000020300000104900006a3d000060340000
+      m_LastClickedID: 13408
+      m_ExpandedIDs: d6fbffff083c0000bc410000de480000704e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -498,9 +498,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.22243877, y: -0.72751653, z: 0.27534318, w: 0.5877302}
   m_Size:
-    m_Target: 92.57863
+    m_Target: 73.37739
     speed: 2
-    m_Value: 92.57863
+    m_Value: 73.37739
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -550,34 +550,34 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Game Assets/Enemies/Evil Spit Plant
+    - Assets/Audio/SFX/Character/Weapons
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Game Assets/Enemies/Evil Spit Plant
+  - Assets/Audio/SFX/Character/Weapons
   m_LastFoldersGridSize: 16
   m_LastProjectPath: E:\Users\Mi Pc\Documents\GitHub\AudioDigital\WAG_No_Sound
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 240}
-    m_SelectedIDs: fc240000
-    m_LastClickedID: 9468
-    m_ExpandedIDs: 0000000010130000aa1d0000121e0000ec1e0000001f0000301f00001020000056220000c22200004c2300007223000068240000b0250000cc260000f227000028280000789b000000ca9a3b
+    scrollPos: {x: 0, y: 207}
+    m_SelectedIDs: 141f0000
+    m_LastClickedID: 7956
+    m_ExpandedIDs: 0000000010130000121e0000ec1e0000001f00001020000056220000c22200004c2300006e23000068240000fc240000b0250000cc260000f227000028280000e2280000422a0000ac9b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Scripts
+      m_OriginalName: Scripts
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 5054
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_SearchString: 
@@ -591,7 +591,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000010130000121e0000ec1e0000001f00001020000056220000c22200004c2300006e2300007223000068240000b0250000cc260000f2270000789b0000
+    m_ExpandedIDs: 0000000010130000aa1d0000121e0000ec1e0000001f0000301f00001020000056220000c22200004c2300007223000068240000b0250000cc260000f227000028280000ac9b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -622,15 +622,15 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: 80250000ca4500000000000040310000322f00005a3100006a2f0000f678000036830000c88a0000f0810000b888000092730000986b00009a810000427d0000ec760000d05a0000ac34000034700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: Evil Spit Plant
-      m_OriginalName: Evil Spit Plant
+      m_Name: barrel
+      m_OriginalName: barrel
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 10030
+      m_UserData: 6414
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
       m_OriginalEventType: 0
@@ -643,7 +643,7 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
+    m_ScrollPosition: {x: 0, y: 2}
     m_GridSize: 16
   m_DirectoriesAreaWidth: 259
 --- !u!114 &17
